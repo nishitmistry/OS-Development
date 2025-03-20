@@ -2,12 +2,12 @@
 
 ## Using Docker to simulate Linux
 
-Due to limited availability of linux system and my laziness to shift from windows to linux, i will be using Docker to excute code that i write. So i will be simulating OS inside a simulator ran by some simulating engine which runs on an OS, that my Pla (Friends refrence).
+Due to limited availability of linux system and my laziness to shift from windows to linux, i will be using Docker to excute code that i write. So i will be simulating OS inside a simulator ran in an OS ran by some simulating engine which runs on an OS, that my Pla (Friends refrence).
 
 ### You can run Docker container with this command attaching the specified volume to container's volume
 
 ```
-    docker run -it --rm -v "D:\OS Development:/mnt/binaries" qemu
+    docker run -it --rm -v "D:\OS Development\bin:/mnt/bin" qemu
 ```
 
 ### For converting Assembly to binary i will be using Nasm assembler
@@ -15,3 +15,13 @@ Due to limited availability of linux system and my laziness to shift from window
 ```
     nasm <FileName>.asm -o  <fileName>.bin
 ```
+
+### Converted binary can be ran with the help of qemu using Follower command
+
+Todo: Attach a monitor
+
+```
+ qemu-system-x86_64 -nographic <filename>.bin
+```
+
+You can stop the boot loader loop using `clt + a` then pressing lowercase `x`
