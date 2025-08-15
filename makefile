@@ -1,19 +1,19 @@
 # === CONFIG ===
-ASM=nasm
-ASM_FLAGS=-f bin
-QEMU=qemu-system-x86_64
+ASM=nasm #the assembler nasm
+ASM_FLAGS=-f bin #raw 512 bytes bootloader must be pure machine code, not wrapped in ELF or PE formats 
+QEMU=qemu-system-x86_64 
 
-# Allow specifying source file like: make BOOT_SRC=boot.asm
-BOOT_SRC ?= boot.asm
-BOOT_BIN := bin/$(basename $(notdir $(BOOT_SRC))).bin
+# Allow specifying source file like: make F=boot.asm
+F ?= boot.asm
+BOOT_BIN := bin/$(basename $(notdir $(F))).bin
 
 # === TARGETS ===
 
-all: $(BOOT_BIN) run
+all: clean $(BOOT_BIN) run
 
-$(BOOT_BIN): $(BOOT_SRC)
+$(BOOT_BIN): $(F)
 	@mkdir -p bin
-	$(ASM) $(ASM_FLAGS) -o $(BOOT_BIN) $(BOOT_SRC)
+	$(ASM) $(ASM_FLAGS) -o $(BOOT_BIN) $(F)
 
 run: $(BOOT_BIN)
 	$(QEMU) -drive format=raw,file=$(BOOT_BIN)
