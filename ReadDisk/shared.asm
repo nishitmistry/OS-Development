@@ -1,0 +1,2 @@
+end_func:
+    ret
